@@ -1,11 +1,23 @@
 import React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
+import '../styles/index.scss'
+import Layout from '../components/Layout'
+import BlogList from '../components/BlogList'
 
-const Home = () => (
-  <div>
-    <h1>Reactor</h1>
-  </div> 
+const Home = props => (
+  <>
+    <Layout pathname="/" siteTitle={props.title} siteDescription={props.description}>
+      <section>
+        <BlogList/>
+      </section>
+    </Layout>
+  </>
 )
 
 export default Home
+
+Home.getInitialProps = async function() {
+  const configData = await import(`../data/config.json`)
+  return {
+    ...configData
+  }
+}
